@@ -37,7 +37,7 @@ func NewRocketMqProducer(opts *options.ProducerOptions) (*RocketMqProducer, erro
 	}, nil
 }
 
-func (p *RocketMqProducer) Publish(ctx context.Context, key []byte, msg []byte, topic string) error {
+func (p *RocketMqProducer) PublishWithTopic(ctx context.Context, topic string, msg []byte, properties map[string]interface{}) error {
 	if topic == "" {
 		topic = p.topic
 	}
@@ -49,8 +49,19 @@ func (p *RocketMqProducer) Publish(ctx context.Context, key []byte, msg []byte, 
 		Topic: topic,
 		Body:  msg,
 	}
-	message.WithKeys([]string{string(key)})
+	if properties != nil {
+		if _, ok := properties["keys"].([]string); ok {
+			message.WithKeys(properties["keys"].([]string))
+		}
+		if _, ok := properties["tags"].(string); ok {
+			message.WithTag(properties["tags"].(string))
+		}
+	}
 
 	_, err := p.producer.SendSync(ctx, message)
 	return err
+}
+
+func (p *RocketMqProducer) Publish(ctx context.Context, msg []byte, properties map[string]interface{}) error {
+	return p.PublishWithTopic(ctx, p.topic, msg, properties)
 }

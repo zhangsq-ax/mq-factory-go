@@ -35,12 +35,22 @@ func NewAwsMskProducer(opts *options.ProducerOptions) (*AwsMskProducer, error) {
 	}, nil
 }
 
-func (p *AwsMskProducer) Publish(ctx context.Context, key []byte, msg []byte, topic string) error {
+func (p *AwsMskProducer) PublishWithTopic(ctx context.Context, topic string, msg []byte, properties map[string]interface{}) error {
 	if topic == "" {
 		topic = p.topic
 	}
 	if topic == "" {
 		return fmt.Errorf("missing target topic")
 	}
+	key := []byte("")
+	if properties != nil && properties["key"] != nil {
+		if _, ok := properties["key"].([]byte); ok {
+			key = properties["key"].([]byte)
+		}
+	}
 	return helper.WriteMessage(ctx, p.writer, key, msg, topic, p.partition)
+}
+
+func (p *AwsMskProducer) Publish(ctx context.Context, msg []byte, properties map[string]interface{}) error {
+	return p.PublishWithTopic(ctx, p.topic, msg, properties)
 }

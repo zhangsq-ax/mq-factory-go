@@ -41,7 +41,7 @@ func NewRocketMqConsumer(opts *options.ConsumerOptions) (*RocketMqConsumer, erro
 	}, nil
 }
 
-func (c *RocketMqConsumer) Start(ctx context.Context, msgHandler func(msg []byte)) error {
+func (c *RocketMqConsumer) Start(ctx context.Context, msgHandler func(msg []byte), properties map[string]interface{}) error {
 	return rmqHelper.ConsumeByConsumer(c.consumer, &rmqHelper.ConsumeOptions{
 		Topic: c.topic,
 		Selector: consumer.MessageSelector{

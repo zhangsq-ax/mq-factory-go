@@ -31,7 +31,7 @@ func NewAwsMskConsumer(opts *options.ConsumerOptions) (*AwsMskConsumer, error) {
 	}, nil
 }
 
-func (c *AwsMskConsumer) Start(ctx context.Context, msgHandler func(msg []byte)) error {
+func (c *AwsMskConsumer) Start(ctx context.Context, msgHandler func(msg []byte), properties map[string]interface{}) error {
 	go func() {
 		for {
 			select {

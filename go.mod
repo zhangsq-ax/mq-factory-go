@@ -4,8 +4,10 @@ go 1.21.6
 
 require (
 	github.com/apache/rocketmq-client-go/v2 v2.1.2
+	github.com/eclipse/paho.mqtt.golang v1.4.3
 	github.com/segmentio/kafka-go v0.4.47
 	github.com/zhangsq-ax/aws-msk-helper-go v1.0.0
+	github.com/zhangsq-ax/mqtt-helper-go v1.0.0
 	github.com/zhangsq-ax/rocketmq-helper-go v1.0.1
 )
 
@@ -13,6 +15,7 @@ require (
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/golang/mock v1.3.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
+	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.1 // indirect
@@ -31,6 +34,8 @@ require (
 	go.uber.org/atomic v1.5.1 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/lint v0.0.0-20190930215403-16217165b5de // indirect
+	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/term v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
